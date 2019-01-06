@@ -34,7 +34,7 @@ We can use RestTemplate to invoke REST endpoint but there are 2 instances runnin
 We can register RestTemplate as a Spring bean with @LoadBalanced annotation. The RestTemplate with @LoadBalanced annotation 
 will internally use Ribbon LoadBalancer to resolve the ServiceID and invoke REST endpoint using one of the available servers.
 
-CONCEPT:=
+CONCEPT:= In ProductService.findProductByCode()
 Note that we have used http://inventory-service/api/inventory/{code} instead of
 http://localhost:9898/api/inventory/{code} or http://localhost:9999/api/inventory/{code} directly.
 
