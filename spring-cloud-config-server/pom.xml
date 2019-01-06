@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cloud.config</groupId>
-	<artifactId>cloud-config-server</artifactId>
+	<artifactId>spring-cloud-config-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-cloud-config-server</name>
 	<description>Project for Spring Cloud Config Server</description>
