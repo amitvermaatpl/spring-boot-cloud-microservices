@@ -1,0 +1,21 @@
+# About this Service: Access the micro-service(ex-catalogService) via the API Gateway #
+
+In microservices architecture, there could be a number of API services and few UI components that are talking to APIs.
+As of now, many microservices based application still use monolithic front-ends where the entire UI is built as a single
+module. You may choose to go with micro-frontends where the UI is also decomposed into multiple micro-service talking to
+APIs to get the relevant data. Instead of letting UI know about all our microservices details we can provide a unified
+proxy interface that will delegate the calls to various microservices based on URL pattern. 
+
+API Gateway: provides a unified interface for a set of microservices so that clients no need to know about all the 
+details of microservices internals. 
+
+# Steps to create a API Gateway using ZUUL #
+EXAMPLE: In this "shopping-cart UI" we need to use/call CATALOG micro-service, and for that we need details of CATALOG 
+service(host, port etc.). But if we use ZUUL gateway there is no need of that, we just need below steps:-
+
+1. Add zuul dependency 
+2. @EnableZuulProxy in Application Class
+3. 
+
+### TEST UI ###
+http://localhost:8080/ui/catalog/api/products
