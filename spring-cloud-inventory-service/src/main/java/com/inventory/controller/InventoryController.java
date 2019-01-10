@@ -1,6 +1,8 @@
 package com.inventory.controller;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class InventoryController {
+	private static final Logger logger = Logger.getLogger(InventoryController.class.getName());
     private final InventoryItemRepository inventoryItemRepository;
  
     @Autowired
@@ -27,7 +30,7 @@ public class InventoryController {
  
     @GetMapping("/api/inventory/{productCode}")
     public ResponseEntity<InventoryItem> findInventoryByProductCode(@PathVariable("productCode") String productCode) {
-        log.info("Finding inventory for product code :"+productCode);
+    	logger.log(Level.INFO, "Finding inventory for product code :"+productCode);
         Optional<InventoryItem> inventoryItem = inventoryItemRepository.findByProductCode(productCode);
         if(inventoryItem.isPresent()) {
             return new ResponseEntity(inventoryItem, HttpStatus.OK);
