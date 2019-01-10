@@ -3,11 +3,12 @@ package com.catalog.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import com.catalog.bean.ProductInventoryResponse;
 import com.catalog.dao.Product;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class ProductService {
+	private static final Logger logger = Logger.getLogger(ProductService.class.getName());
     private final ProductRepository productRepository;
     private final InventoryServiceClient inventoryServiceClient;
      
@@ -30,6 +32,7 @@ public class ProductService {
     }
   
     public List<Product> findAllProducts() {
+    	logger.log(Level.INFO, "Fetching all the products.");
         return productRepository.findAll();
     }
  
@@ -38,6 +41,7 @@ public class ProductService {
     }*/
    
     public Optional<Product> findProductByCode(String code) {
+    	logger.log(Level.INFO, "Fetching product by code= ", code);
         Optional<Product> productOptional = productRepository.findByCode(code);
         if (productOptional.isPresent()) {
             String correlationId = UUID.randomUUID().toString();

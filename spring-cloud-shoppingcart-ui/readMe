@@ -19,3 +19,33 @@ service(host, port etc.). But if we use ZUUL gateway there is no need of that, w
 
 ### TEST UI ###
 http://localhost:8080/ui/catalog/api/products
+
+### Distributed Tracing with Spring Cloud Sleuth and Zipkin ###
+One of the challenges in microservices architecture is the ability to debug issues. A simple user action might trigger
+a chain of downstream microservice calls. It would be tedious to trace the logs related to a particular user action 
+across microservices.
+
+Solution: Two Steps configuration
+1. Sleuth & zipkin Dependency in Micro-Service pom.
+2. Add below properties in application.properties
+   spring.zipkin.base-url=http://localhost:9411/
+   spring.sleuth.sampler.probability=1
+
+# Distributed Tracing with Zipkin Server #
+The false in [inventory-service,0335da07260d3d6f,1af68249ac3a6902,false] indicates that this trace is not exported to 
+any Tracing Server like Zipkin. Let us see how we can export the tracing information to Zipkin.
+
+Download Zipkin Jar:
+https://search.maven.org/remote_content?g=io.zipkin.java&a=zipkin-server&v=LATEST&c=exec
+
+Then start the Zipking server by using below command:
+java -jar zipkin-server-1.30.3-exec.jar
+
+Once Zipkin is started, we can see the Web UI at http://localhost:9411/zipkin/
+
+#### DB password expired in Oracle ####
+
+Solution: Using SQLDeveloper
+1. Login with root/admin
+2. run below command
+alter user myuser identified by mynewpassword account unlock;
