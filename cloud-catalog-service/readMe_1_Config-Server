@@ -1,0 +1,27 @@
+### About this Micro-Service: http://localhost:8181 AND http://localhost:8181/P002 ###
+
+1. It's a Simple micro-service from which we can get the product details. (Boot Project running on 8181)
+   > Let us start with our first microservice ie, catalog-service. Create a SpringBoot app with Web, JPA, MySQL,
+     Actuator, DevTools, and Lombok starters.
+   > Create Product, ProductRepo, ProductService and ProductController class.
+   > Create a GIT Repo for Config-Server and properties file here for your micro-services, ex- catalog-service.properties
+   > Create one separate config-server project & add pom-dependency:: and add GIT project URL in properties file.
+
+**************************************************************************************************************************
+
+2. Spring-Cloud Config: Externalize configuration properties, in this micro-service we are going to fetch configuration
+                        values from spring-config-server. (Boot project running on port 8888)
+   http://localhost:8888/catalog-service/default   [** START this server first **]
+   
+   CONCEPT-BEHIND: In the microservices world, there could be a large number of microservices and multiple instances of those
+   microservices are running. Updating configuration properties and restarting all those instances manually or even with 
+   automated scripts may not be feasible. Spring Cloud Config addresses this problem.
+   
+   STEPS required to implement the CONFIG-SERVER:=
+   > CREATE a spring boot project(config-server) and add your microservices property files here.
+   > In this spring boot project(microservice) add dependency for config-server-client to access project related properties.
+   > REFRENCE: https://sivalabs.in/2017/08/spring-cloud-tutorials-introduction-to-spring-cloud-config-server/
+   
+## Oracle Driver in Maven Repo ##
+mvn install:install-file -Dfile=C:\\{PATH}\\jars\\ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar
+  

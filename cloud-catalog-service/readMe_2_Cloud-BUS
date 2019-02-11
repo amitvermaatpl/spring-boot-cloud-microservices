@@ -1,0 +1,36 @@
+### Why Spring Cloud-Bus? ###
+
+   PROBLEM: is to reload the config changes in Config Client applications we need to trigger /refresh endpoint manually. 
+            This is not practical and viable if you have large number of applications.
+   
+   SOLUTION: Spring-CLOUD-BUS:: module can be used to link multiple applications with a message broker and we can broadcast
+                                configuration changes.
+   
+   > We can use RabbitMQ as message broker and connect multiple applications to receive the configuration change events 
+     and refresh the bounded property values.
+   > We are going to use RabbitMQ as message broker to broadcast config changes.
+   > In all of your spring boot projects(microservices), add spring-cloud-bus dependency and configuration
+   > From any of the micro-service project if you hit the url like- http://localhost:8181/bus/refresh
+     > This will automatically broadcast the config changes to all the services that subscribed to RabbitMQ and 
+       refresh the properties.
+
+## STEPS:= Same steps for all other micro-services required for your application. ##
+
+1. In project add pom depedency: spring-cloud-starter-bus-amqp
+2. We are going to use RabbitMQ as message broker to broadcast config changes.
+3. Install RabbitMQ on your local machine or RUN in docker container.
+   > DOCKER: docker-compose.yml then RUN docker-compose up [-d]
+   > OR:= docker pull rabbitmq:3-management, THEN docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 
+   > Open http://localhost:15672, in my machine URL is http://192.168.99.100:15672/  [guest, guest]
+4. Add rabbitMQ properties in catalog-service and other microservices property files.
+
+5. After that START the service, if you found below issue:-
+   java.lang.ClassNotFoundException: org.springframework.integration.config.HandlerMethodArgumentResolversHolder
+
+   Then change the cloud version  from 2.0.0 to 2.1.0  [Greenwich.RELEASE is compiatable with 2.1.0]
+  
+6. Use @RefreshScope in beans/class in which you wan to read the property.
+   > http://localhost:8181/service   [Try after changing the name as well.]
+   > REFRESH all in one : http://localhost:8181/actuator/bus-refresh  [POST request using postman****]
+
+

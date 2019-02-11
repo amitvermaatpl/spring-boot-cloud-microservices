@@ -1,0 +1,10 @@
+1. Install oracle 12c
+2. Create user by using -
+   cmd>sqlplus system
+   
+   Before creating the user RUN:-   
+   > alter session set "_ORACLE_SCRIPT"=true;  
+   > CREATE USER amit IDENTIFIED BY verma;
+   
+   Then grant the access to user:-
+   > GRANT CONNECT, RESOURCE, DBA TO amit;
