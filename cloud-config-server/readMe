@@ -1,7 +1,16 @@
+### CONCEPT: Config-Server is to Externalize configuration properties ###
+
+In the microservices world, there could be a large number of microservices and multiple instances of those
+microservices are running. Updating configuration properties and restarting all those instances manually or 
+even with automated scripts may not be feasible. Spring Cloud Config addresses this problem.
+
+HOW?
+> Create a GIT Repo for Config-Server and properties file here for your micro-services, ex- catalog-service.properties
+> Create one separate config-server project & add pom-dependency:: and add GIT project URL in properties file.
+
 # About cloud-config-server, We can put all our microservices related properties files here, example
   > For catalog-service: catalog-service.properties
   > For inventory-service: inventory-service.properties
-
 
 # Spring Cloud Config Server exposes the following REST endpoints to get application specific configuration properties:
   /{application}/{profile}[/{label}]

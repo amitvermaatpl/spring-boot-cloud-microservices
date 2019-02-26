@@ -1,0 +1,50 @@
+1. Create a boot project with dependency:= spring-cloud-starter-netflix-eureka-server
+2. @EnableEurekaServer
+>> CLIENT
+1. Add dependency in pom: spring-cloud-starter-netflix-eureka-client
+2. In application.properties add:= eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+########### Why Spring Registry and Discovery? #############
+
+https://sivalabs.in/2018/03/microservices-springcloud-eureka/
+
+>>>> Admin Server Client changes:-
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+		</dependency>
+
+############################################################
+
+REGISTER and DISCOVER your MICRO-SERVICES: Register your micro-services in Eureka Server Just 2 STEPS !!
+
+Suppose we have 2 microservices catalog-service and inventory-service and we are running 2 instances of inventory-service
+at http://localhost:8181/ and http://localhost:8282/. Now let’s say we want to invoke some inventory-service REST endpoint
+from catalog-service. Which URL should we hit?
+
+HOW? STEPS?
+
+Step-1: Spring Cloud Netflix Eureka based Server:: Create a separate boot project ex- cloud-eurka-server
+        
+Step-2: Now register the micro-service as eureka cients, by adding pom dependency       
+		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		
+Step-3: Add in application.properties, configure the URL for eureka server
+        eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+        
+
+############### TEST ################
+Run one more instance of this service
+java -jar -Dserver.port=9797 target/catalog-service-0.0.1-SNAPSHOT-exec.jar
+
+And hit the url: localhost:8761
+Now if you go to http://localhost:8761 you will notice that 2 instances of catalog-service got registered and you can 
+see their hostname: port details as well.
+
+
+
+
+        		
+        
+        
+         

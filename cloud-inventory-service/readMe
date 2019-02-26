@@ -1,0 +1,44 @@
+## About this Micro-Service ##
+
+1. Create: Simple micro-service from which we can get the QUANTITY details of the given product. 
+   (Boot Project running on 8282) EXAMPLE: http://localhost:8282/api/inventory/{productCode}
+   http://localhost:8282/api/inventory/P001
+
+2. Configuration: In this service we are going to fetch configuration values from spring-config-server.
+                  (Boot project running on port 8888) http://localhost:8888/inventory-service/default
+
+3. Registry the Service: Register inventory-service with Eureka server by configuring Eureka serviceUrl 
+                         in src/main/resources/bootstrap.properties. [+ Adding eureka discovery starter.]
+   
+   We just need to add eureka dependency in pom.xml and configure eureka-client property in bootstrap.properties
+   [eureka.client.service-url.defaultZone=http://localhost:8761/eureka/] to automatically register with the Eureka Server.
+   
+4. With this configuration in place, start eureka service(cloud-eureka-server) and then start catalog-service and visit 
+   http://localhost:8761
+   You should see catalog-service is registered with SERVICE ID as CATALOG-SERVICE. You can also notice the status as UP(1) 
+   which means the services are up and running and one instance of catalog-service is running.
+  
+5. TEST-Service:- Before testing the inventory service, first starts the below server:-
+   > Eureka server (cloud-service-registry at port 8761)
+   > Config Server (cloud-config-server at port 8888)
+
+6. Let us start another instance of inventory-service on a different port using the following command.
+	
+   > java -jar -Dserver.port=9898 target/cloud-inventory-service-0.0.1-SNAPSHOT.jar 
+     java -jar -Dserver.port=9999 target/cloud-inventory-service-0.0.1-SNAPSHOT.jar
+
+   Now if you go to http://localhost:8761 you will notice that 3 instances of inventory-service got registered and 
+   you can see their host-name: port details as well.
+   
+   
+########### RUN Spring Boot Project from command line #############
+http://appsdeveloperblog.com/run-spring-boot-app-from-a-command-line/
+
+    java -jar target/mywebserviceapp-0.0.1-SNAPSHOT.jar
+    
+    mvn spring-boot:run
+    
+	gradle bootRun
+	
+Automatic Restart and Hot Swapping [devtools starter]
+Applications that use spring-boot-devtools dependency automatically restart whenever files on the classpath change

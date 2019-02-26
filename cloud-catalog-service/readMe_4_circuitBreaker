@@ -1,0 +1,44 @@
+######################## CONCEPT of CIRCUIT BREAKER ########################
+In the microservices world, to fulfill a client request one microservice may need to talk to other microservices. 
+We should minimize this kind of direct dependencies on other microservices but in some cases it is unavoidable. 
+If a microservice is down or not functioning properly then the issue may cascade up to the upstream services. 
+Netflix created Hystrix library implementing Circuit Breaker pattern to address these kinds of issues. 
+
+From catalog-service we are invoking REST endpoint on inventory-service to get the inventory level of a product. 
+What if inventory-service is down? What if inventory-service is taking too long to respond thereby slowing down all the 
+services depending on it? We would like to have some timeouts and implement some fallback mechanism.
+
+STEPS?
+1. Add Hystrix starter to catalog-service:: spring-cloud-starter-netflix-hystrix
+
+2. To enable Circuit Breaker add @EnableCircuitBreaker annotation on catalog-service
+
+3. Now we can use @HystrixCommand annotation on any method we want to apply timeout and fallback method.
+
+4. We can customize the @HystrixCommand default behavior by configuring properties using @HystrixProperty annotations.
+
+NOTE: How to propagate ThreadLocal variables??
+Refer: https://sivalabs.in/2018/03/spring-cloud-netflix-circuit-breaker/
+
+##################### Monitoring Circuit Breakers using Hystrix Dashboard #####################
+
+> Create a Spring Boot application with Hystrix Dashboard starter and annotate the main entry-point class
+  with @EnableHystrixDashboard.  [port 8788]
+  
+  NOTE: if not works then use below dependency.
+  <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
+    <version>2.1.0.RELEASE</version>
+  </dependency>
+  
+> OR, IN this catalog-service we already use Hystrix starter, so we can use @EnableHystrixDashboard in main class.
+
+> Open browser: http://localhost:8788/hystrix
+  In Hystrix Dashboard enter the url: http://localhost:8181/actuator/hystrix.stream
+  > Then click - Monitor Stream 
+  
+> Now invoke the catalog-service REST endpoint which internally invokes inventory-service REST endpoint 
+  and you can see the Circuit status along with how many calls succeed and how many failures occurred etc.
+  
+  

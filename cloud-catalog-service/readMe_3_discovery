@@ -1,0 +1,21 @@
+1. After Service-Registry
+3. Register RestTemplate as a Spring bean with @LoadBalanced annotation.
+
+########### Why Spring Registry and Discovery? #############
+
+https://sivalabs.in/2018/03/microservices-springcloud-eureka/
+
+########## Discovering other services using Eureka Client ############
+
+1. Create one more micro-service() and register that in eureka server. Then run 2 instances of that service.
+2. Check the eureka dashboard http://localhost:8761/ after registering the service.
+
+3. Now, invoke the micro-service() from this ctalog-service by using REST-TEMPLATE   
+
+##########  Ribbon LoadBalancer  ##########  
+
+> Run multiple instances of the micro-service()
+> Consume/Call this micro-service() from catalog-service.
+> We can register RestTemplate as a Spring bean with @LoadBalanced annotation. 
+  The RestTemplate with @LoadBalanced annotation will internally use Ribbon LoadBalancer 
+  to resolve the ServiceID and invoke REST endpoint using one of the available servers.

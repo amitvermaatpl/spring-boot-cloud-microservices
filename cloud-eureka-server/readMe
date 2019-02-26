@@ -1,0 +1,13 @@
+1. Create a boot project with dependency:= spring-cloud-starter-netflix-eureka-server
+2. @EnableEurekaServer
+>> CLIENT
+1. Add dependency in pom: spring-cloud-starter-netflix-eureka-client
+2. In application.properties add:= eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+
+By default, each Eureka Server is also a Eureka client and needs at least one service URL to locate a peer.
+As we are going to have a single Eureka Server node (Standalone Mode), we are going to disable this client-side 
+behavior by configuring the properties in application.properties file.
+
+When a service is registered with Eureka Server it keeps sending heartbeats for certain interval. If Eureka server didn’t
+receive heartbeat from any service instance it will assume service instance is down and take it out from the pool.

@@ -1,0 +1,25 @@
+### Topics covered in this POC ###
+
+1. Configuration Management with Spring-Cloud-Config
+   > By using spring-config-server we can seprate our the configuration properties.
+   > Just create one config-server(boot project: 8888) by adding config-server and GIT uri in properties.
+   > To use in- add config-client + config-server uri in properties.
+
+2. Spring Cloud Service Registry and Discovery
+   > By using EUREKA Server we can achieve this functionality.
+   > Create one eureka-server(boot project: 8761) by adding eureka-server + URI in properties.
+   > To Use- add eureka client + eureka uri in properties.
+
+   > Example: catalog-service wants to consume inventory-service(running on multiple servers)
+              > USE- RestTemplate with @LoadBalanced {Ribbon load balancer}
+
+3. Spring Cloud Circuit-Breaker using Netflix Hystrix: To protect microservices from cascading failures.
+   > Example: catalog-service wants to consume inventory-service(running on multiple servers)
+     > But what if inventory-service is down.
+   > Add Hystrix starter to catalog-service. +  @EnableCircuitBreaker annotation.
+   > We can use @HystrixCommand annotation on any method we want to apply timeout and fallback method.
+   > HYSTRIX DASH-BOARD: To chekc the circuit breakers status. [ @EnableHystrixDashboard ]
+
+4. Spring Cloud Zuul proxy as API Gateway.
+
+5. Distributed Tracing with Spring Cloud Sleuth and Zipkin.
